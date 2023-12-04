@@ -1,5 +1,5 @@
 //part 1
-package org.example;
+package org.thehuglio;
 
 import java.io.File;
 import java.util.*;
