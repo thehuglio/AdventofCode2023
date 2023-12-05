@@ -1,5 +1,5 @@
 //part 1 (not done yet)
-package org.example;
+package org.thehuglio;
 
 import java.io.File;
 import java.util.*;
@@ -24,12 +24,13 @@ public class Main {
             }
             templist.add(data.get(i));
         }
+        datalists.add(templist);
         for (List<String> datas : datalists) {
             List<Long> templist1 = new LinkedList<>();
             for (long i : seedlist) {
                 for (int j = 0; j < datas.size(); j++) {
                     String[] datasplit = datas.get(j).split(" ");
-                    long newlong = convert(Long.parseLong(datasplit[1]),Long.parseLong(datasplit[0]),Long.parseLong(datasplit[2]),i);
+                    long newlong = convert(Long.parseLong(datasplit[0]),Long.parseLong(datasplit[1]),Long.parseLong(datasplit[2]),i);
                     if (newlong != i) {
                         templist1.add(newlong);
                         break;
