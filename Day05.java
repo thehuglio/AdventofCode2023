@@ -26,7 +26,6 @@ public class Main {
         }
         for (List<String> datas : datalists) {
             List<Long> templist1 = new LinkedList<>();
-            System.out.println(seedlist);
             for (long i : seedlist) {
                 for (int j = 0; j < datas.size(); j++) {
                     String[] datasplit = datas.get(j).split(" ");
@@ -35,13 +34,13 @@ public class Main {
                         templist1.add(newlong);
                         break;
                     }
-                    if (j == data.size() - 1)  {
+                    if (j == datas.size() - 1)  {
                         templist1.add(newlong);
                     }
                 }
             }
             seedlist = templist1;
-            
+            System.out.println(seedlist);
         }
         long lowest = seedlist.get(0);
         for (long i : seedlist) {
@@ -51,11 +50,9 @@ public class Main {
         }
         System.out.println(lowest);
     }
-    public static long convert(long source, long dest, long range, long convert){
-        for (long j = 0; j < range; j++) {
-            if (source + j == convert) {
-                return dest + j;
-            }
+    public static long convert(long dest, long source, long range, long convert){
+        if (convert >= source && convert < source + range) {
+            return dest + (convert - source);
         }
         return convert;
     }
