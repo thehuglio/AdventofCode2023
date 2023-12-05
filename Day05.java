@@ -167,7 +167,7 @@ public class Main {
                 }
             }
         }
-        System.out.println(lowest - 1); //i dont know why this -1 is here but it worked so im not going to touch it
+        System.out.println(lowest - 1); //i dont know why this -1 is here but it worked so im not going to touch it on a friends sollusion it worked without the -1 so idk why this is
     }
 }
 
