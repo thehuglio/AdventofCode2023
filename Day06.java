@@ -42,7 +42,7 @@ public class Main {
         System.out.println(tot);
     }
 }
-//part 2
+//part 2 (remove spacing from the input data)
 package org.thehuglio;
 
 import java.io.File;
