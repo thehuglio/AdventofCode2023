@@ -87,3 +87,105 @@ public class Main {
         }
     }
 }
+
+//part 2
+package org.example;
+
+import java.io.File;
+import java.util.*;
+
+public class Main {
+
+    private static final List<String> data = new Reader(new File("data.txt")).data;
+    public static List<Integer> sorted = new LinkedList<>();
+
+    public static void main(String[] args) {
+        HashMap<List<Integer>,Integer> fiveoak = new HashMap<>();
+        HashMap<List<Integer>,Integer> fouroak = new HashMap<>();
+        HashMap<List<Integer>,Integer> fullhouse = new HashMap<>();
+        HashMap<List<Integer>,Integer> threeoak = new HashMap<>();
+        HashMap<List<Integer>,Integer> twopair = new HashMap<>();
+        HashMap<List<Integer>,Integer> onepair = new HashMap<>();
+        HashMap<List<Integer>,Integer> highcard = new HashMap<>();
+
+        for (String s : data) {
+            String[] split = s.split(" ");
+            String[] cards = split[0].split("");
+            List<Integer> cardn = new LinkedList<>();
+            for (String card : cards) {
+                cardn.add(Arrays.asList("J23456789TQKA".split("")).indexOf(card));
+            }
+            HashMap<Integer,Integer> sets = new HashMap<>();
+            for (int i = 0; i < cardn.size(); i++) {
+                if (cardn.get(i) != 0) {
+                    if (sets.containsKey(cardn.get(i))) {
+                        sets.replace(cardn.get(i),sets.get(cardn.get(i)) + 1);
+                    } else {
+                        sets.put(cardn.get(i),1);
+                    }
+                } else {
+                    for (int j = 0; j < 13; j++) {
+                        if (sets.containsKey(j)) {
+                            sets.replace(j,sets.get(j) + 1);
+                        } else {
+                            sets.put(j,1);
+                        }
+                    }
+                }
+            }
+            if (sets.containsValue(5)) {
+                fiveoak.put(cardn, Integer.parseInt(split[1]));
+            } else if (sets.containsValue(4)) {
+                fouroak.put(cardn, Integer.parseInt(split[1]));
+            } else if (sets.containsValue(3)) {
+                if (sets.containsValue(2) && sets.get(0) == 0) {
+                    fullhouse.put(cardn,Integer.parseInt(split[1]));
+                } else {
+                    threeoak.put(cardn,Integer.parseInt(split[1]));
+                }
+            } else if (sets.containsKey(2)) {
+                int temp = 0;
+                for (Map.Entry<Integer, Integer> i : sets.entrySet()) {
+                    if (i.getValue() == 2) {
+                        temp++;
+                    }
+                }
+                if (temp == 1) {
+                    onepair.put(cardn,Integer.parseInt(split[1]));
+                } else {
+                    twopair.put(cardn,Integer.parseInt(split[1]));
+                }
+            } else {
+                highcard.put(cardn,Integer.parseInt(split[1]));
+            }
+        }
+        rank(highcard);
+        rank(onepair);
+        rank(twopair);
+        rank(threeoak);
+        rank(fullhouse);
+        rank(fouroak);
+        rank(fiveoak);
+        int tot = 0;
+        for (int i = 0; i < sorted.size(); i++) {
+            System.out.println(sorted.get(i) + " " + sorted.get(i) * (i+1));
+            tot += sorted.get(i) * (i+1);
+        }
+        System.out.println(tot);
+    }
+    private static void rank(HashMap<List<Integer>,Integer> hash) {
+        for (int i = 0; i <= 12; i++) {
+            for (int j = 0; j <= 12; j++) {
+                for (int k = 0; k <= 12; k++) {
+                    for (int l = 0; l <= 12; l++) {
+                        for (int p = 0; p <= 12; p++) {
+                            if (hash.containsKey(List.of(i, j, k, l, p))) {
+                                sorted.add(hash.get(List.of(i, j, k, l, p)));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
