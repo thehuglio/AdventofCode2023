@@ -88,7 +88,7 @@ public class Main {
     }
 }
 
-//part 2 (not done)
+//part 2
 package org.thehuglio;
 
 import java.io.File;
