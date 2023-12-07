@@ -116,6 +116,7 @@ public class Main {
                 cardn.add(Arrays.asList("J23456789TQKA".split("")).indexOf(card));
             }
             HashMap<Integer,Integer> sets = new HashMap<>();
+            sets.put(0,0);
             for (int i = 0; i < cardn.size(); i++) {
                 if (cardn.get(i) != 0) {
                     if (sets.containsKey(cardn.get(i))) {
@@ -135,28 +136,47 @@ public class Main {
             }
             if (sets.containsValue(5)) {
                 fiveoak.put(cardn, Integer.parseInt(split[1]));
+                continue;
             } else if (sets.containsValue(4)) {
                 fouroak.put(cardn, Integer.parseInt(split[1]));
+                continue;
             } else if (sets.containsValue(3)) {
-                if (sets.containsValue(2) && sets.get(0) == 0) {
+                int temp = 0;
+                for (Map.Entry<Integer, Integer> i : sets.entrySet()) {
+                    if (i.getValue() == 3) {
+                        temp++;
+                    }
+                }
+                if ((sets.containsValue(2) && sets.get(0) == 0) || temp == 2) {
                     fullhouse.put(cardn,Integer.parseInt(split[1]));
                 } else {
                     threeoak.put(cardn,Integer.parseInt(split[1]));
                 }
-            } else if (sets.containsKey(2)) {
+                continue;
+            } else if (sets.containsValue(2)) {
                 int temp = 0;
                 for (Map.Entry<Integer, Integer> i : sets.entrySet()) {
                     if (i.getValue() == 2) {
                         temp++;
                     }
                 }
-                if (temp == 1) {
-                    onepair.put(cardn,Integer.parseInt(split[1]));
-                } else {
+                if (temp == 2) {
                     twopair.put(cardn,Integer.parseInt(split[1]));
+                } else {
+                    onepair.put(cardn,Integer.parseInt(split[1]));
                 }
+                continue;
+            }
+            int temp = 0;
+            for (Map.Entry<Integer, Integer> i : sets.entrySet()) {
+                if (i.getValue() == 1) {
+                    temp++;
+                }
+            }
+            if (temp == 5) {
+                highcard.put(cardn, Integer.parseInt(split[1]));
             } else {
-                highcard.put(cardn,Integer.parseInt(split[1]));
+                System.out.println("error");
             }
         }
         rank(highcard);
