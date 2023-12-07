@@ -88,8 +88,8 @@ public class Main {
     }
 }
 
-//part 2
-package org.example;
+//part 2 (not done)
+package org.thehuglio;
 
 import java.io.File;
 import java.util.*;
