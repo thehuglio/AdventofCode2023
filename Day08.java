@@ -124,30 +124,26 @@ public class Main {
                             lastlist.add(Long.valueOf(loop.get(0)));
                         }
                         List<Integer> counter = new LinkedList<>(List.of(0,0,0,0,0,0,0));
-                        boolean check1 = true;
-                        long firstint = 0;
-                        while (check1) {
-                            for (int j = 0; j < loops.size(); j++) {
+                        while (true) {
+                            for (int j = 0; j < loops.size() - 1; j++) {
                                 List<Integer> loop = loops.get(j);
-                                for (int k = 0; k < loops.size(); k++) {
-                                    if (lastlist.get(j) < lastlist.get(k)) {
+                                if (!Objects.equals(lastlist.get(j), lastlist.get(j + 1))) {
+                                    if (lastlist.get(j) < lastlist.get(j + 1)) {
                                         lastlist.set(j, lastlist.get(j) + loop.get(counter.get(j) % (loop.size() - 1) + 1));
                                         counter.set(j, counter.get(j) + 1);
-                                    } else {break;}
-                                }
-                            }
-                            firstint = lastlist.get(0);
-                            for (long j : lastlist) {
-                                if (j != firstint) {
-                                    check1 = true;
+                                    } else {
+                                        lastlist.set(j, lastlist.get(j+1) + loop.get(counter.get(j+1) % (loop.size() - 1) + 1));
+                                        counter.set(j, counter.get(j+1) + 1);
+                                    }
                                     break;
                                 }
-                                check1 = false;
+                            }
+                            if (Objects.equals(lastlist.get(1), lastlist.get(4))) {
+                                System.out.println(lastlist);
+                                check = false;
+                                break;
                             }
                         }
-                        System.out.println(firstint);
-                        check = false;
-                        break;
                     }
                 }
                 current = temp;
