@@ -36,7 +36,7 @@ public class Numbers {
         return safe;
     }
 }
-//part 1
+//Main class (same for both parts)
 package org.thehuglio;
 
 import java.io.File;
